@@ -24,6 +24,7 @@ class puzzleSolver:
 
     def __init__(self):
         self.startingState = self.inputCollector()
+        self.endingSolution = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
         self.expandedNodes = []
         self.coveredNodes = []
 
@@ -40,9 +41,37 @@ class puzzleSolver:
 
         return inputtedList
 
+    def costCalculate(self, start, goal):
+        '''calculates g(n) + h(n)'''
+        return self.manhattanHeuristic(start.data,goal) + start.depth
+
+    def manhattanHeuristic(self, start, goal):
+        '''the A* heuristic, calculates the estimated cost from n to goal'''
+
+        temp = 0
+
+        for y in range(0, 3):
+            for x in range(0, 3):
+                if start[y][x] != goal [y][x] and start[y][x] != 0:
+                    temp += 1
+
+        return temp
+
     def puzzleSolution(self):
 
-        endingSolution = [[0,1,2], [3,4,5], [6,7,8]]
+        initialState = Node(self.startingState, 0, 0)
+        initialState.cost = self.costCalculate(self.startingState,self.endingSolution)
+        self.expandedNodes.append(initialState)
+        solutionFound = False
+        while(solutionFound != True):
+            consideredNode = self.expandedNodes.pop(0)
+
+            if(consideredNode.node.data == self.endingSolution):
+                solutionFound = True
+
+            else:
+                self.coveredNodes.append(consideredNode)
+
 
 
 
