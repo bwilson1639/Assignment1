@@ -11,11 +11,21 @@ class Node:
         self.cost = cost
 
     def createChild(self):
-        '''creates all child nodes off of current node'''
+        '''creates all child nodes off of current node, returns list of possible nodes'''
 
         for place in self.data:
             if self.data[place] == 0:
                 currentBlankPosition = place
+
+        for y in range(0,3):
+            for x in range (0,3):
+                if self.data[y][x] == 0:
+                    xValue = x
+                    yvalue = y
+
+        possibleList = [[x,y-1], [x,y+1], [x-1,y][x+1,y]]
+        children = []
+
 
 
 
@@ -70,7 +80,9 @@ class puzzleSolver:
                 solutionFound = True
 
             else:
+                for child in
                 self.coveredNodes.append(consideredNode)
+
 
 
 
