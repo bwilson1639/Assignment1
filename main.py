@@ -21,10 +21,14 @@ class Node:
             for x in range (0,3):
                 if self.data[y][x] == 0:
                     xValue = x
-                    yvalue = y
+                    yValue = y
 
-        possibleList = [[x,y-1], [x,y+1], [x-1,y][x+1,y]]
+        possibleList = [[xValue,yValue-1], [xValue,yValue+1], [xValue-1,yValue][xValue+1,yValue]]
         children = []
+
+        for coordinate in possibleList:
+            if coordinate[0] >= 0 and coordinate[0] < 4 and coordinate[1] >= 0 and coordinate[1] < 4:
+                children.append(coordinate)
 
 
 
