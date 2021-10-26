@@ -13,15 +13,17 @@ class Node:
     def createChild(self):
         '''creates all child nodes off of current node, returns list of possible nodes'''
 
-        for place in self.data:
-            if self.data[place] == 0:
-                currentBlankPosition = place
+        # for y in self.data:
+        #     for x in y:
+        #         if self.data[y][x] == 0:
+        #             currentBlankPosition = place
 
         for y in range(0,3):
             for x in range (0,3):
-                if self.data[y][x] == 0:
+                if self.data[y][x] == '0':
                     xValue = x
                     yValue = y
+
 
         possibleList = [[xValue,yValue-1], [xValue,yValue+1], [xValue-1,yValue],[xValue+1,yValue]]
         possibleChildren = []
@@ -78,7 +80,7 @@ class puzzleSolver:
 
         for y in range(0, 3):
             for x in range(0, 3):
-                if start[y][x] != goal [y][x] and start[y][x] != 0:
+                if start[y][x] != goal[y][x] and start[y][x] != 0:
                     temp += 1
 
         return temp
