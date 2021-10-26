@@ -23,7 +23,7 @@ class Node:
                     xValue = x
                     yValue = y
 
-        possibleList = [[xValue,yValue-1], [xValue,yValue+1], [xValue-1,yValue][xValue+1,yValue]]
+        possibleList = [[xValue,yValue-1], [xValue,yValue+1], [xValue-1,yValue],[xValue+1,yValue]]
         possibleChildren = []
         children = []
 
@@ -86,18 +86,18 @@ class puzzleSolver:
     def puzzleSolution(self):
 
         initialState = Node(self.startingState, 0, 0)
-        initialState.cost = self.costCalculate(self.startingState,self.endingSolution)
+        initialState.cost = self.costCalculate(initialState,self.endingSolution)
         self.expandedNodes.append(initialState)
 
         while(True):
             consideredNode = self.expandedNodes.pop(0)
 
-            for i in consideredNode:
+            for i in consideredNode.data:
                for j in i:
                    print(j,end=" ")
                print(" ")
 
-            if(consideredNode.node.data == self.endingSolution):
+            if(consideredNode.data == self.endingSolution):
                 break
 
             for child in consideredNode.createChild():
