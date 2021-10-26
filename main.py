@@ -1,4 +1,4 @@
-
+from copy import deepcopy
 
 
 class Node:
@@ -17,6 +17,8 @@ class Node:
         #     for x in y:
         #         if self.data[y][x] == 0:
         #             currentBlankPosition = place
+        xValue = None
+        yValue = None
 
         for y in range(0,3):
             for x in range (0,3):
@@ -37,8 +39,9 @@ class Node:
         '''moves the data around based on the possible children then saves it in children list'''
         for childNode in possibleChildren:
             possibleChildData = possibleChildren.pop(0)
-            tempHolder = self.data[possibleChildData[1]][possibleChildData[0]]
-            childData = self.data
+            tempHolder = deepcopy(self.data[possibleChildData[1]][possibleChildData[0]])
+            childData = deepcopy(self.data)
+
             childData[possibleChildData[1]][possibleChildData[0]] = 0
             childData[yValue][xValue] = tempHolder
             children.append(Node(childData,self.depth + 1, 0))
