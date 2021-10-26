@@ -24,12 +24,24 @@ class Node:
                     yValue = y
 
         possibleList = [[xValue,yValue-1], [xValue,yValue+1], [xValue-1,yValue][xValue+1,yValue]]
+        possibleChildren = []
         children = []
 
+        '''checks to see what moves are possible'''
         for coordinate in possibleList:
             if coordinate[0] >= 0 and coordinate[0] < 4 and coordinate[1] >= 0 and coordinate[1] < 4:
-                children.append(coordinate)
+                possibleChildren.append(coordinate)
 
+        '''moves the data around based on the possible children then saves it in children list'''
+        for childNode in possibleChildren:
+            possibleChildData = possibleChildren.pop(0)
+            tempHolder = self.data[possibleChildData[1]][possibleChildData[0]]
+            childData = self.data
+            childData[possibleChildData[1]][possibleChildData[0]] = 0
+            childData[yValue][xValue] = tempHolder
+            children.append(Node(childData,self.depth + 1, 0))
+
+        return children
 
 
 
@@ -76,20 +88,31 @@ class puzzleSolver:
         initialState = Node(self.startingState, 0, 0)
         initialState.cost = self.costCalculate(self.startingState,self.endingSolution)
         self.expandedNodes.append(initialState)
-        solutionFound = False
-        while(solutionFound != True):
+
+        while(True):
             consideredNode = self.expandedNodes.pop(0)
 
-            if(consideredNode.node.data == self.endingSolution):
-                solutionFound = True
+            for i in consideredNode:
+               for j in i:
+                   print(j,end=" ")
+               print(" ")
 
-            else:
-                for child in
+            if(consideredNode.node.data == self.endingSolution):
+                break
+
+            for child in consideredNode.createChild():
+                child.cost = self.costCalculate(child, self.endingSolution)
+                self.expandedNodes.append(child)
                 self.coveredNodes.append(consideredNode)
 
+                self.expandedNodes.sort(key = lambda x:x.cost,reverse=False)
 
 
 
 
 
-print(puzzleSolver().startingState)
+
+
+
+puz = puzzleSolver()
+puz.puzzleSolution()
