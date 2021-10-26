@@ -33,16 +33,16 @@ class Node:
 
         '''checks to see what moves are possible'''
         for coordinate in possibleList:
-            if coordinate[0] >= 0 and coordinate[0] < 4 and coordinate[1] >= 0 and coordinate[1] < 4:
+            if coordinate[0] >= 0 and coordinate[0] < 3 and coordinate[1] >= 0 and coordinate[1] < 3:
                 possibleChildren.append(coordinate)
 
         '''moves the data around based on the possible children then saves it in children list'''
         for childNode in possibleChildren:
             possibleChildData = possibleChildren.pop(0)
-            tempHolder = deepcopy(self.data[possibleChildData[1]][possibleChildData[0]])
+            tempHolder = self.data[possibleChildData[1]][possibleChildData[0]]
             childData = deepcopy(self.data)
 
-            childData[possibleChildData[1]][possibleChildData[0]] = 0
+            childData[possibleChildData[1]][possibleChildData[0]] = '0'
             childData[yValue][xValue] = tempHolder
             children.append(Node(childData,self.depth + 1, 0))
 
@@ -101,7 +101,7 @@ class puzzleSolver:
                for j in i:
                    print(j,end=" ")
                print(" ")
-
+            print("\n")
             if(consideredNode.data == self.endingSolution):
                 break
 
